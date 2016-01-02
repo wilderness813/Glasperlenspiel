@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Glass Bead Game</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+
+
+<body>
+
+<script src="js/lib/angular.min.js"></script>
+<script src="js/ctrlMain.js"></script>
+<script src="js/quest.js"></script>
+
+
+<div ng-app="mainApp" ng-controller="ctrlMain">
+    <input type="button" id="btnStart" value="New task, please!" ng-click="genTask()">
+    <br>
+    <input type="text" ng-model="answer.value">
+    <br>
+    <input type="text" ng-model="quest.toString()">
+    <br>
+    <!--answer: {{answer.value}}-->
+    <br>
+    <!--answer is {{answer.check()}}-->
+    <br>
+    <img c lass="ng-style: quest.style" id=imgQuest src="resources/Beethoven.jpg" ng-show="answer.check()" height="100"
+         width="100">
+</div>
+
+
+</body>
+</html>
