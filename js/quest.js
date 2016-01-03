@@ -9,7 +9,7 @@ function Quest() {
     this.answer = ""; // correct answer to a task
 }
 
-Quest.style ={'opacity': 1.0}; //style
+Quest.style ={'opacity': 1.0};
 Quest.type = "general";
 Quest.complexity = 10;
 

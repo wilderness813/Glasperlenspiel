@@ -14,11 +14,6 @@ mainApp.controller("ctrlMain", function ($scope) {
         }
     };
 
-    //$scope.doit = function () {
-    //    alert(1);
-    //}
-    //
-
     $scope.genTask = function () {
         $scope.quest.genQuest();
     }

@@ -40,7 +40,7 @@ IntervalQuest.notesRange = [10, 60];
 //constructor
 function IntervalQuest() {
     this.notes = [];
-    this.maxInterval = Math.floor(Quest.complexity / 3);
+    this.maxInterval = Math.floor(Quest.complexity / 3); // maximum interval, which can appear
     this.notes[0] = randomIntUniform(IntervalQuest.notesRange[0], IntervalQuest.notesRange[1] - this.maxInterval);
     this.notes[1] = randomIntUniform(this.notes[0], this.notes[0] + this.maxInterval);
 }
@@ -52,5 +52,6 @@ IntervalQuest.prototype.toString = function () {
 
 // override base play method
 IntervalQuest.prototype.play = function () {
+    // TODO play midi in browser
     alert(this.toString());
 };
