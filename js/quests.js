@@ -14,17 +14,39 @@ ArithmeticQuest.ops = ["+", "*"];
 //constructor
 function ArithmeticQuest() {
     this.op = randomElem(ArithmeticQuest.ops);
-    this.args = [randomIntUniform(0, Quest.complexity), randomIntUniform(0, Quest.complexity)];
+    var range = Quest.complexity;
+    if ((this.op == "+") || (this.op == "-")) {
+        range *= range;
+    }
+
+    this.args = [randomIntUniform(0, range), randomIntUniform(0, range)];
+    // calculate answer
+    switch (this.op) {
+        case "+":
+            this.answer = this.args[0] + this.args[1];
+            break;
+        case "*":
+            this.answer = this.args[0] * this.args[1];
+            break;
+        case "-":
+            this.answer = this.args[0] - this.args[1];
+            break;
+        case "%":
+            this.answer = this.args[0] % this.args[1];
+            break;
+        default:
+            throwError("ArithmeticQuest:'" + this.op + "': unknown operation");
+    }
 }
 
 // this may not be too beautiful
 ArithmeticQuest.prototype.toString = function () {
-    return this.args[0] + " " + this.op + " " + this.args[1];
+    return this.args[0] + " " + this.op + " " + this.args[1] + " = ?";
 };
 
 // override base play method
-ArithmeticQuest.prototype.play = function () {
-    alert(this.toString());
+ArithmeticQuest.prototype.play = function ($scope) {
+    $scope.questString = this.toString();
 };
 
 /*
@@ -43,6 +65,7 @@ function IntervalQuest() {
     this.maxInterval = Math.floor(Quest.complexity / 3); // maximum interval, which can appear
     this.notes[0] = randomIntUniform(IntervalQuest.notesRange[0], IntervalQuest.notesRange[1] - this.maxInterval);
     this.notes[1] = randomIntUniform(this.notes[0], this.notes[0] + this.maxInterval);
+    this.answer = "";
 }
 
 // this may not be too beautiful
@@ -51,7 +74,21 @@ IntervalQuest.prototype.toString = function () {
 };
 
 // override base play method
-IntervalQuest.prototype.play = function () {
+IntervalQuest.prototype.play = function ($scope) {
     // TODO play midi in browser
-    alert(this.toString());
+    $scope.questString = this.toString();
 };
+
+/*
+ Factory that returns new quest of a random type
+ */
+QuestFactory.types = [ArithmeticQuest, IntervalQuest];
+QuestFactory.complexity = 10;
+
+function QuestFactory() {
+    this.create = function () {
+        Quest.complexity = QuestFactory.complexity;
+        var type = randomElem(QuestFactory.types);
+        return new type;
+    }
+}

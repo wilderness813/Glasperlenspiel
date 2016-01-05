@@ -1,27 +1,32 @@
 var mainApp = angular.module("mainApp", []);
 mainApp.controller("ctrlMain", function ($scope) {
 
-    // current quest
-    $scope.quest = new Quest();
+    // quest factory produces quests for user
+    $scope.questFactory = new QuestFactory();
+
+    $scope.quest = {};
+
+    $scope.genQuest = function () {
+        $scope.quest = $scope.questFactory.create();
+        $scope.quest.play($scope);
+    };
 
     // user's answer
     $scope.answer = {
 
-        value: "1",
+        value: "",
 
         check: function () {
-            return $scope.answer.value == $scope.quest.answer;
+            var isRight = ($scope.answer.value == $scope.quest.answer);
+            if (isRight) {
+                $scope.answer.value = "";
+                $scope.genQuest();
+            }
+            return isRight;
         }
     };
 
-    $scope.genTask = function () {
-        $scope.quest.genQuest();
-    }
-
+    // the question
+    $scope.questString = "";
 
 });
-
-// how we show error
-function throwError(text) {
-    alert(text);
-};
