@@ -11,7 +11,8 @@ function Quest() {
 
 Quest.style = {'opacity': 1.0};
 Quest.type = "general";
-Quest.complexity = 10;
+// Quest.complexity is defined in QuestFactory
+//Quest.complexity = 100;
 
 // each quest implementation must have a play function to display it to user
 Quest.prototype.play = function ($scope) {
