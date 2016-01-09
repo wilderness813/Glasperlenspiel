@@ -31,9 +31,9 @@ function ArithmeticQuest() {
         case "-":
             this.answer = this.args[0] - this.args[1];
             break;
-        case "%":
-            this.answer = this.args[0] % this.args[1];
-            break;
+        //case "%":
+        //    this.answer = this.args[0] % this.args[1];
+        //    break;
         default:
             throwError("ArithmeticQuest:'" + this.op + "': unknown operation");
     }
@@ -49,10 +49,22 @@ ArithmeticQuest.prototype.play = function ($scope) {
     $scope.questString = this.toString();
 };
 
-/*
+// hint
+ArithmeticQuest.prototype.hint = function () {
+    var hintedArg0 = 0;
+    if ((this.op == "*")) {
+        hintedArg0 = Math.floor(this.answer / 2.0);
+    }
+    else if (this.op == "+") {
+        hintedArg0 = Math.floor((this.answer + this.args[0]) / 2.0);
+    }
+    return hintedArg0 + " + " + (this.answer - hintedArg0);
+};
+
+/******************************************************
  Music interval quest. Plays random interval.
  User must determine what interval it is.
- */
+ *****************************************************/
 IntervalQuest.prototype = new Quest();
 IntervalQuest.constructor = IntervalQuest;
 IntervalQuest.type = "interval";
@@ -135,16 +147,20 @@ IntervalQuest.prototype.play = function ($scope) {
     MIDI.noteOff(0, this.notes[1], delay + IntervalQuest.duration);
 };
 
+// hint
+IntervalQuest.prototype.hint = function () {
+    return MIDI.noteToKey[this.notes[0]] + " " + MIDI.noteToKey[this.notes[1]];
+};
+
 /*
  Factory that returns new quest of a random type
  */
+QuestFactory = {};
 QuestFactory.types = [ArithmeticQuest, IntervalQuest];
-QuestFactory.complexity = 30;
-
-function QuestFactory() {
-    this.create = function () {
-        Quest.complexity = QuestFactory.complexity;
-        var type = randomElem(QuestFactory.types);
-        return new type;
-    }
-}
+//QuestFactory.types = [ArithmeticQuest];
+QuestFactory.complexity = 10;
+QuestFactory.create = function () {
+    Quest.complexity = QuestFactory.complexity;
+    var type = randomElem(QuestFactory.types);
+    return new type;
+};

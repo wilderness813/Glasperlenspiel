@@ -12,13 +12,14 @@ function Quest() {
 Quest.style = {'opacity': 1.0};
 Quest.type = "general";
 // Quest.complexity is defined in QuestFactory
-//Quest.complexity = 100;
+Quest.complexity = 30;
 
 // each quest implementation must have a play function to display it to user
 Quest.prototype.play = function ($scope) {
     throwError("play(): not implemented in Quest!");
 };
 
-Quest.prototype.findAnswer = function () {
-    throwError("findAnswer(): not implemented in Quest!");
+Quest.prototype.hint = function () {
+    throwError("hint(): not implemented in Quest!");
 };
+

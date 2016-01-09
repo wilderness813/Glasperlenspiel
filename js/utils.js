@@ -16,7 +16,6 @@ function randomElem(arr) {
     return arr[randomIntUniform(0, arr.length)];
 }
 
-
 /*
  Show error
  */

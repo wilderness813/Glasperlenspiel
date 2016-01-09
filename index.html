@@ -36,7 +36,6 @@
 <script src="js/lib/MIDIjs/soundfont/acoustic_grand_piano.js" type="text/javascript"></script>
 
 
-
 <!---------------MY JS--------------------->
 <script src="js/utils.js"></script>
 <script src="js/quest.js"></script>
@@ -49,20 +48,40 @@
 <!--</div>-->
 
 <div id="divBody" class="container-fluid">
-    <!--helo!-->
     <div class="main" ng-app="mainApp" ng-controller="ctrlMain">
+        <!--title-->
         <h1>Glasperlenspiel</h1>
         <br>
 
-        <p><input type="button" class="btn" id="btnStart" value="Start!" ng-click="genQuest()"></p>
+        <!--start button-->
+        <p>
+            <input type="button" class="btn" id="btnStart" value="Start!" ng-click="newQuest()">
+        </p>
 
-        <p><label id="txtQuest" ng-bind="questString"/></p>
+        <!--question-->
+        <p>
+            <label id="txtQuest" ng-bind="questString"/>
+        </p>
 
-        <p><input type="text" class="txtAns" ng-model="answer.value"></p>
-        <br>
-        <img class="ng-style: quest.style" id=imgQuest src="resources/Beethoven.jpg" ng-show="answer.check()"
-             height="100"
-             width="100">
+        <!--answer and help-->
+        <p>
+            <input type="text" class="txtAns" ng-change="answer.check()" ng-model="answer.value">
+        </p>
+
+        <p>
+            <label id="txtHint" ng-bind="'' + hint"/>
+        </p>
+
+        <!--user's score-->
+        <p>
+            <label id="txtScore" ng-bind="'Score: ' + score.value"/>
+        </p>
+
+        <!--<br>-->
+        <!--<img class="ng-style: quest.style" id=imgQuest src="resources/Beethoven.jpg" ng-show="answer.check()"-->
+        <!--height="100"-->
+        <!--width="100">-->
+
     </div>
 </div>
 
